@@ -30,16 +30,16 @@ for item in new_items:
         d_items[item] = {}
         for manufacturer in new_items[item]:
             if manufacturer not in d_items[item]:
-                d_items[item][manufacturer] = {"максимальное время поставки": 0, "минимальное время поставки": 0, "среднее время поставки": 0, "среднее изменеение цены": 0, "максимальная цена": 0, "минимальная цена": 0}
+                d_items[item][manufacturer.get_code()] = {"максимальное время поставки": 0, "минимальное время поставки": 0, "среднее время поставки": 0, "среднее изменеение цены": 0, "максимальная цена": 0, "минимальная цена": 0}
             if len(list(filter(lambda x: x is not None, manufacturer.get_arrival_times()))) == 0:
-                d_items[item][manufacturer]["среднее время поставки"] = 0
-                d_items[item][manufacturer]["максимальное время поставки"] = 0
-                d_items[item][manufacturer]["минимальное время поставки"] = 0
+                d_items[item][manufacturer.get_code()]["среднее время поставки"] = 0
+                d_items[item][manufacturer.get_code()]["максимальное время поставки"] = 0
+                d_items[item][manufacturer.get_code()]["минимальное время поставки"] = 0
             else:
-                d_items[item][manufacturer]["среднее время поставки"] = sum(list(filter(lambda x: x is not None, manufacturer.get_arrival_times()))) // len(list(filter(lambda x: x is not None, manufacturer.get_arrival_times())))
-                d_items[item][manufacturer]["максимальное время поставки"] = max(
+                d_items[item][manufacturer.get_code()]["среднее время поставки"] = sum(list(filter(lambda x: x is not None, manufacturer.get_arrival_times()))) // len(list(filter(lambda x: x is not None, manufacturer.get_arrival_times())))
+                d_items[item][manufacturer.get_code()]["максимальное время поставки"] = max(
                     list(filter(lambda x: x is not None, manufacturer.get_arrival_times())))
-                d_items[item][manufacturer]["минимальное время поставки"] = min(
+                d_items[item][manufacturer.get_code()]["минимальное время поставки"] = min(
                     list(filter(lambda x: x is not None, manufacturer.get_arrival_times())))
             print(manufacturer.get_prices())
 print(d_items)
