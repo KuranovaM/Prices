@@ -26,7 +26,10 @@ class Manufacturer:
     def get_prices(self):
         return self.__prices
 
-    def get_prices_for_year(self, year: int):
+    def get_price_by_index(self, index: int):
+        return self.__prices.get(list(self.__prices.keys())[index])
+
+    def get_price_for_year(self, year: int):
         if year in self.__prices.keys():
             return self.__prices.get(year)
         else:
