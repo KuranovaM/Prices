@@ -1,6 +1,6 @@
 class Manufacturer:
-    def __init__(self, code: int, arrival_times: list[int],
-                 prices: dict[int: [float]]):
+    def __init__(self, code: int, arrival_times,
+                 prices):
         self.__code = code
         self.__arrival_times = self.custom_remove(arrival_times, None)
         self.__prices = {}
@@ -27,6 +27,8 @@ class Manufacturer:
         return self.__prices
 
     def get_price_by_index(self, index: int):
+        if len(self.__prices.keys()) == 0:
+            return 0
         return self.__prices.get(list(self.__prices.keys())[index])
 
     def get_price_for_year(self, year: int):
