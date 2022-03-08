@@ -29,7 +29,9 @@ for i in items:
         d_items[i] = {}
         for ii in items[i]:
             if ii not in d_items[i]:
-                d_items[i][ii] = {"максимальное время поставки": 0, "минимальное время поставки": 0, "среднее время поставки": 0, "среднее изменеение цены": 0, "максимальная цена": 0, "минимальная цена": 0}
+                d_items[i][ii] = {"максимальное время поставки": 0, "минимальное время поставки": 0, "среднее время поставки": 0, "среднее изменеение цены": 0, "последняя цена": 0}
+            pris = []
+            years = {}
             for iii in items[i][ii]:
                 if iii == 'время поставки':
                     if len(list(filter(lambda x: x is not None, items[i][ii]['время поставки']))) == 0:
@@ -43,8 +45,26 @@ for i in items:
                         d_items[i][ii]["минимальное время поставки"] = min(
                             list(filter(lambda x: x is not None, items[i][ii]['время поставки'])))
                 else:
-                    years = {}
-                    if iii not in years:
-                        print(iii[:4])
-                        years[iii[:4]] = [d_items[i][ii][iii]]
+                    if iii != 'None':
+                        if iii[:4] not in years:
+                            years[iii[:4]] = items[i][ii][iii]
+                        else:
+                            for f in items[i][ii][iii]:
+                                years[iii[:4]].append(f)
+            years_d = {}
+            c = 0
+            for r in sorted(years):
+                c += 1
+                if len(years[r]) == 0:
+                    years_d[r] = 0
+                else:
+                    years_d[r] = sum(
+                        list(filter(lambda x: x is not None, years[r]))) // len(
+                        list(filter(lambda x: x is not None, years[r])))
+                    if c == len(years):
+                        d_items[i][ii]["последняя цена"] = sum(list(filter(lambda x: x is not None, years[r]))) // len(list(filter(lambda x: x is not None, years[r])))
+            print(years_d)
+
+
+
 print(d_items)
