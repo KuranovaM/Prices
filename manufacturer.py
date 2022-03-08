@@ -9,6 +9,7 @@ class Manufacturer:
             if type(prices.get(key)) == list:
                 self.__prices[key] = sum(prices.get(key)) / len(prices.get(key))
             else: self.__prices[key] = prices.get(key)
+        self.__prices = self.custom_sort(self.__prices)
 
     def __str__(self):
         return f"Manufacturer:" \
@@ -41,3 +42,11 @@ class Manufacturer:
                 while param in origin:
                     del origin[origin.index(param)]
         return origin
+
+    @staticmethod
+    def custom_sort(origin: dict):
+        year_map = sorted(origin)
+        output = {}
+        for year in year_map:
+            output[year] = origin.get(year)
+        return output
